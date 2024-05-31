@@ -11,30 +11,46 @@
 // 입력: "apple", "pineapple"
 // 출력: new Set(['p', 'l', 'e'])
 
-
 function commonCharacters(s1, s2) {
-    // 작성할 코드
+  // 작성할 코드
+  const s1Set = new Set(s1.split(""));
+  const s2Set = new Set(s2.split(""));
+  const shortSet = s1Set.size <= s2Set.size ? s1Set : s2Set;
+  const commonList = [];
+  shortSet.forEach((item) => {
+    if (s2Set.has(item)) {
+      commonList.push(item);
+    }
+  });
+
+  return new Set(commonList);
 }
 
 // 테스트 코드
 function testCommonCharacters() {
-    const testCases = [
-        { input: ["apple", "pineapple"], expected: new Set(['a', 'p', 'l', 'e']) },
-        { input: ["hello", "world"], expected: new Set(['o', 'l']) },
-        { input: ["abc", "def"], expected: new Set() },
-        { input: ["abcdef", "fedcba"], expected: new Set(['a', 'b', 'c', 'd', 'e', 'f']) },
-    ];
+  const testCases = [
+    { input: ["apple", "pineapple"], expected: new Set(["a", "p", "l", "e"]) },
+    { input: ["hello", "world"], expected: new Set(["o", "l"]) },
+    { input: ["abc", "def"], expected: new Set() },
+    {
+      input: ["abcdef", "fedcba"],
+      expected: new Set(["a", "b", "c", "d", "e", "f"]),
+    },
+  ];
 
-    testCases.forEach(({input, expected}, index) => {
-        try {
-            const result = new Set(commonCharacters(input[0], input[1]));
-            const isEqual = expected.size === result.size && [...expected].every(value => result.has(value));
-            if (!isEqual) throw new Error(`Expected ${[...expected]}, but got ${[...result]}`);
-            console.log(`Test ${index + 1}: Passed`);
-        } catch (error) {
-            console.log(`Test ${index + 1}: Failed - ${error.message}`);
-        }
-    });
+  testCases.forEach(({ input, expected }, index) => {
+    try {
+      const result = new Set(commonCharacters(input[0], input[1]));
+      const isEqual =
+        expected.size === result.size &&
+        [...expected].every((value) => result.has(value));
+      if (!isEqual)
+        throw new Error(`Expected ${[...expected]}, but got ${[...result]}`);
+      console.log(`Test ${index + 1}: Passed`);
+    } catch (error) {
+      console.log(`Test ${index + 1}: Failed - ${error.message}`);
+    }
+  });
 }
 
 // 테스트 함수 호출 터미널에 node practice2-2.js 실행

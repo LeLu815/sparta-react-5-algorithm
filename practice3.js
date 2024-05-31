@@ -14,39 +14,54 @@
 // 입력: "hello", "bello"
 // 출력: false
 
-
 function isAnagram(a, b) {
-    // 코드작성공간
+  // 코드작성공간
+  const formatedAString = a.replaceAll(" ", "");
+  const formatedBString = b.replaceAll(" ", "");
+
+  if (formatedAString.length !== formatedBString.length) {
+    return false;
+  }
+  let isSameB = formatedBString;
+  for (let i = 0; i < formatedAString.length; i++) {
+    if (isSameB.replace(formatedAString[i], "").length !== isSameB) {
+      isSameB = isSameB.replace(formatedAString[i], "");
+    } else {
+      return false;
+    }
+  }
+  return true;
 }
 
 // 테스트 코드
 function testIsAnagram() {
-    const testCases = [
-        { input: ["listen", "silent"], expected: true },
-        { input: ["hello", "bello"], expected: false },
-        { input: ["anagram", "nagaram"], expected: true },
-        { input: ["rat", "car"], expected: false },
-        { input: ["Dormitory", "Dirty room"], expected: true }, // 공백과 대소문자 무시
-        { input: ["The eyes", "They see"], expected: true }, // 공백과 대소문자 무시
-        { input: ["a gentleman", "elegant man"], expected: true }, // 공백과 대소문자 무시
-        { input: ["School master", "The classroom"], expected: true }, // 공백과 대소문자 무시
-        { input: ["Conversation", "Voices rant on"], expected: true }, // 공백과 대소문자 무시
-        { input: ["Astronomer", "Moon starer"], expected: true }, // 공백과 대소문자 무시
-        { input: ["funeral", "real fun"], expected: true }, // 공백과 대소문자 무시
-        { input: ["adultery", "true lady"], expected: true }, // 공백과 대소문자 무시
-        { input: ["Eleven plus two", "Twelve plus one"], expected: true }, // 공백과 대소문자 무시
-        { input: ["apple", "pale"], expected: false } // 길이가 다른 경우
-    ];
+  const testCases = [
+    { input: ["listen", "silent"], expected: true },
+    { input: ["hello", "bello"], expected: false },
+    { input: ["anagram", "nagaram"], expected: true },
+    { input: ["rat", "car"], expected: false },
+    { input: ["Dormitory", "Dirty room"], expected: true }, // 공백과 대소문자 무시
+    { input: ["The eyes", "They see"], expected: true }, // 공백과 대소문자 무시
+    { input: ["a gentleman", "elegant man"], expected: true }, // 공백과 대소문자 무시
+    { input: ["School master", "The classroom"], expected: true }, // 공백과 대소문자 무시
+    { input: ["Conversation", "Voices rant on"], expected: true }, // 공백과 대소문자 무시
+    { input: ["Astronomer", "Moon starer"], expected: true }, // 공백과 대소문자 무시
+    { input: ["funeral", "real fun"], expected: true }, // 공백과 대소문자 무시
+    { input: ["adultery", "true lady"], expected: true }, // 공백과 대소문자 무시
+    { input: ["Eleven plus two", "Twelve plus one"], expected: true }, // 공백과 대소문자 무시
+    { input: ["apple", "pale"], expected: false }, // 길이가 다른 경우
+  ];
 
-    testCases.forEach(({input, expected}, index) => {
-        try {
-            const result = isAnagram(input[0], input[1]);
-            if (result !== expected) throw new Error(`Expected ${expected}, but got ${result}`);
-            console.log(`Test ${index + 1}: Passed`);
-        } catch (error) {
-            console.log(`Test ${index + 1}: Failed - ${error.message}`);
-        }
-    });
+  testCases.forEach(({ input, expected }, index) => {
+    try {
+      const result = isAnagram(input[0], input[1]);
+      if (result !== expected)
+        throw new Error(`Expected ${expected}, but got ${result}`);
+      console.log(`Test ${index + 1}: Passed`);
+    } catch (error) {
+      console.log(`Test ${index + 1}: Failed - ${error.message}`);
+    }
+  });
 }
 
 // 테스트 함수 호출 : 터미널에 node practice3.js 실행

@@ -11,31 +11,46 @@
 // 입력: "banana"
 // 출력: 'a'
 
-
-
 function mostFrequentChar(s) {
   // 코드를 작성해주세요.
+  const resultObj = {};
+  for (let i = 0; i < s.length; i++) {
+    if (!resultObj[s[i]]) {
+      // 없으면?
+      resultObj[s[i]] = 1;
+    } else {
+      // 있으면
+      resultObj[s[i]] += 1;
+    }
+  }
+  const keys = Object.keys(resultObj);
+  const values = Object.values(resultObj);
+  const maxValue = Math.max(...values);
+  const maxIndex = values.findIndex((item) => item === maxValue);
+
+  return keys[maxIndex];
 }
 
 // 테스트 코드
 function testMostFrequentChar() {
-    const testCases = [
-        { input: "banana", expected: ['a'] },
-        { input: "appllaaaae", expected: ['a'] },
-        { input: "mississippi", expected: ['i', 's'] },
-        { input: "mississippiss", expected: ['s'] },
-        { input: "aabbcc", expected: ['a', 'b', 'c'] },
-    ];
+  const testCases = [
+    { input: "banana", expected: ["a"] },
+    { input: "appllaaaae", expected: ["a"] },
+    { input: "mississippi", expected: ["i", "s"] },
+    { input: "mississippiss", expected: ["s"] },
+    { input: "aabbcc", expected: ["a", "b", "c"] },
+  ];
 
-    testCases.forEach(({input, expected}, index) => {
-        try {
-            const result = mostFrequentChar(input);
-            if (!expected.includes(result)) throw new Error(`Expected one of ${expected}, but got ${result}`);
-            console.log(`Test ${index + 1}: Passed`);
-        } catch (error) {
-            console.log(`Test ${index + 1}: Failed - ${error.message}`);
-        }
-    });
+  testCases.forEach(({ input, expected }, index) => {
+    try {
+      const result = mostFrequentChar(input);
+      if (!expected.includes(result))
+        throw new Error(`Expected one of ${expected}, but got ${result}`);
+      console.log(`Test ${index + 1}: Passed`);
+    } catch (error) {
+      console.log(`Test ${index + 1}: Failed - ${error.message}`);
+    }
+  });
 }
 
 // 테스트 함수 호출 : 터미널에 node practice2-1.js 실행
